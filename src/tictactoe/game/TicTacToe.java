@@ -87,6 +87,17 @@ public class TicTacToe {
         }
     }
 
+    public void restart(Button[][] board) {
+        for (Button[] row : board) {
+            for (Button button : row) {
+                button.setDisable(false);
+                button.setText("");
+            }
+        }
+        this.currentPlayer = Player.X;
+        this.currentState = GameState.ONGOING;
+    }
+
     public GameState getCurrentState() {
         return currentState;
     }

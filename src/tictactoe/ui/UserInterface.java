@@ -3,7 +3,9 @@ package tictactoe.ui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -11,6 +13,8 @@ import javafx.scene.text.Font;
 import tictactoe.game.TicTacToe;
 
 import tictactoe.enums.GameState;
+
+import java.util.Optional;
 
 
 public class UserInterface {
@@ -62,6 +66,8 @@ public class UserInterface {
                     } else {
                         turn.setText(game.getCurrentState().toString());
                         game.disableButtons(board);
+                        this.handleEndOfGame();
+                        turn.setText("Turn: X");
                         return;
                     }
 
@@ -72,5 +78,25 @@ public class UserInterface {
         }
 
         return layout;
+    }
+
+    public void handleEndOfGame() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("The game has ended!");
+        alert.setHeaderText(game.getCurrentState().toString());
+
+        ButtonType playAgainButton = new ButtonType("Play Again");
+        ButtonType exitButton = new ButtonType("Exit");
+
+        alert.getButtonTypes().setAll(playAgainButton, exitButton);
+
+        Optional<ButtonType> option = alert.showAndWait();
+        if (option.isPresent()) {
+            if (option.get() == playAgainButton) {
+                game.restart(board);
+            } else {
+                System.exit(0);
+            }
+        }
     }
 }
