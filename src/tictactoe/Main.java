@@ -16,8 +16,8 @@ public class Main extends Application {
         TicTacToe game = new TicTacToe();
         UserInterface ui = new UserInterface(game);
 
-        BorderPane root = ui.createUI();
-        Scene scene = new Scene(root);
+        BorderPane layout = ui.createUI();
+        Scene scene = new Scene(layout);
 
         window.getIcons().add(new Image("tictactoe/ui/icon.png"));
         window.setTitle("Tic Tac Toe");
